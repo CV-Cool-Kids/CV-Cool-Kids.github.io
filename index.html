@@ -3,7 +3,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
   <title>Computer Vision Class Project
-  | ECE, Virginia Tech | Fall 2015: ECE 5554/4984</title>
+  | CS, Georgia Tech | Fall 2020: CS4476</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -34,60 +34,57 @@ color: #FF9900;
 <div class="page-header">
 
 <!-- Title and Name --> 
-<h1>Your Title Here</h1> 
-<span style="font-size: 20px; line-height: 1.5em;"><strong>Your Name Here</strong></span><br>
-<span style="font-size: 18px; line-height: 1.5em;">Fall 2015 ECE 5554/4984 Computer Vision: Class Project</span><br>
-<span style="font-size: 18px; line-height: 1.5em;">Virginia Tech</span>
+<h1>Mask Detection with CV [PROPOSAL]</h1> 
+<span style="font-size: 20px; line-height: 1.5em;"><strong>Naveen Ram, Cameron Benett, Rahul Bhethanabotla, Matthew Kelsey</strong></span><br>
+<span style="font-size: 18px; line-height: 1.5em;">Computer Vision Class Project Fall 2020: CS4476</span><br>
+<span style="font-size: 18px; line-height: 1.5em;">Georgia Tech</span>
 <hr>
-
-Please see <a href="http://vision.cs.utexas.edu/projects/adapted_attributes/">this</a> for an example of how to lay out the various details of your project. You may need to provide more details than this, beause you will not be submitting an associated paper to accompany the webpage. So the page should be self-contained
-
 <!-- Goal -->
-<h3>Abstract</h3>
+<h3>Problem Statement</h3>
 
-One or two sentences on the motivation behind the problem you are solving. One or two sentences describing the approach you took. One or two sentences on the main result you obtained.
+<p>States across the country are working to reopen their facilities and public health authorities are assisting in facilitating this transition for most. During this transition, there have been a number of problematic and concerning statistics recorded from sources such as <a href="https://www.pewresearch.org/fact-tank/2020/06/23/most-americans-say-they-regularly-wore-a-mask-in-stores-in-the-past-month-fewer-see-others-doing-it/ft_2020-06-23_masks_01/">Pew Research Center</a> which claims fewer than two-thirds of U.S. adults claiming to wear masks are actually following suit. This is a concerning statistic for local businesses and supermarkets whose employees' livelihoods are in jeopardy based on customer compliance to simple mask wearing rules. In order to assist with the transition for stores, we pose the challenge of utilizing computer vision to create a system that can detect people wearing face masks in real time. This sort of system would be ideal for security usage in physical shops and stores at an assortment of locations. For effectiveness, we would constrain our system to be capable of detecting any number of faces at distances of up to 20ft away from any real-time camera feed. Given this live camera feed, this system should produce a percentage certainty that someone in the camera is wearing their mask. This system should also give an option to alert users of the system as to whether someone has entered without wearing a mask.</p>
+
 <br><br>
 <!-- figure -->
-<h3>Teaser figure</h3>
+<!-- <h3>Teaser figure</h3>
 A figure that conveys the main idea behind the project or the main application being addressed.
 <br><br>
 <!-- Main Illustrative Figure --> 
-<div style="text-align: center;">
+<!-- <div style="text-align: center;">
 <img style="height: 200px;" alt="" src="mainfig.png">
 </div>
 
-<br><br>
-<!-- Introduction -->
-<h3>Introduction</h3>
-Motivation behind the problem you are solving, what applications it has, any brief background on the particular domain you are working in (if not regular RBG photographs), etc. If you are using a new way to solve an existing problem, briefly mention and describe the existing approaches and tell us how your approach is new.
-
-<br><br>
-<!-- Approach -->
+<br><br> -->
 <h3>Approach</h3>
-Describe very clearly and systematically your approach to solve the problem. Tell us exactly what existing implementations you used to build your system. Tell us what obstacles you faced and how you addressed them. Justify any design choices or judgment calls you made in your approach.
+<p>We hope to use a variety of computer vision algorithms in order to create a system which can both crop faces out of a larger image and classify whether a mask is imposed over the image or not. We plan on using a Haar Classifier to crop faces out of the larger image. This will provide us with smaller images of the isolated faces, rather than a larger image which might contain multiple faces and background elements. As a baseline, we intend to train a CNN on similar facial images in order to classify across whether a mask is present on the face and whether it is placed correctly or not. Additionally, we will experiment with the use of data preprocessing algorithms like blob detection and background separation on the inputs to the CNN to see if we can increase accuracy. If necessary, we will also attempt to transform/augment our data in order to make our algorithm effective for different mask colors and types.</p>
+
 
 <br><br>
-<!-- Results -->
 <h3>Experiments and results</h3>
-Provide details about the experimental set up (number of images/videos, number of datasets you experimented with, train/test split if you used machine learning algorithms, etc.). Describe the evaluation metrics you used to evaluate how well your approach is working. Include clear figures and tables, as well as illustrative qualitative examples if appropriate. Be sure to include obvious baselines to see if your approach is doing better than a naive approach (e.g. for classification accuracy, how well would a classifier do that made random decisions?). Also discuss any parameters of your algorithms, and tell us how you set the values of those parameters. You can also show us how the performance varies as you change those parameter values. Be sure to discuss any trends you see in your results, and explain why these trends make sense. Are the results as expected? Why?
-
+<p>Datasets:</p>
+<p><a href="https://esigelec-my.sharepoint.com/personal/cabani_esigelec_fr/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fcabani%5Fesigelec%5Ffr%2FDocuments%2FMaskedFaceNetDataset%2FCMFD&originalPath=aHR0cHM6Ly9lc2lnZWxlYy1teS5zaGFyZXBvaW50LmNvbS86ZjovZy9wZXJzb25hbC9jYWJhbmlfZXNpZ2VsZWNfZnIvRXYzR2RuUVN5enhQanl6VTVFbEhxYWdCbGtSQ2FLbm5DSTg1aVgtZDFMNE9IQT9ydGltZT1NV1pUUUV4bDJFZw">Correct Face Masking Dataset</a></p>
+<p><a href="https://esigelec-my.sharepoint.com/personal/cabani_esigelec_fr/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fcabani%5Fesigelec%5Ffr%2FDocuments%2FMaskedFaceNetDataset%2FIMFD&originalPath=aHR0cHM6Ly9lc2lnZWxlYy1teS5zaGFyZXBvaW50LmNvbS86ZjovZy9wZXJzb25hbC9jYWJhbmlfZXNpZ2VsZWNfZnIvRWlyalM4ZXc3LTVMbk84STU2VWs2M3dCS2Vid1NsdWtGQkZCYU84TjI1d24zZz9ydGltZT1iNS1RdUUxbDJFZw">Incorrect Face Masking Dataset</a></p>
+<p>Code: We intend to make use of modules like OpenCV and Keras in building our project. We may use some helpful methods in OpenCV to expedite certain steps in our project such as the Haar Cascade classification to isolate faces and face features. Obviously, to set up our CNN, we’ll use Keras methods/classes as needed.</p>
+<p>We believe success would be having a statistically significant result (>95%) in positively detecting whether or not a person was wearing a mask and if they were wearing it correctly. Furthermore, we believe that by using various preprocessing algorithms, we’ll be able to identify which algorithms work the best in yielding meaningful results.</p>
+<p>We expect the results to be pretty straightforward: either the classifier works well or it doesn’t. Uncertainty might arise from our implementations of the preprocessing and what parameters we use for Haar and in our CNN. Furthermore, it's possible that the proportion of not-wearing a mask at all to wearing-incorrectly in the “Incorrect Face Masking Dataset” could skew how well we are able to identify the difference between (wearing, incorrect) vs (not-wearing, ___). Also since all the masks in the dataset are the same color, we might attempt to algorithmically change the color of some of the masks in the training dataset so the classifier works on all types of masks. 
+</p>
 <br><br>
 
 <!-- Main Results Figure --> 
-<div style="text-align: center;">
+<!-- <div style="text-align: center;">
 <img style="height: 300px;" alt="" src="results.png">
 </div>
-<br><br>
+<br><br> -->
 
 <!-- Results -->
-<h3>Qualitative results</h3>
+<!-- <h3>Qualitative results</h3>
 Show several visual examples of inputs/outputs of your system (success cases and failures) that help us better understand your approach.
-<br><br>
+<br><br> -->
 
 <!-- Main Results Figure --> 
-<div style="text-align: center;">
+<!-- <div style="text-align: center;">
 <img style="height: 300px;" alt="" src="qual_results.png">
-</div>
+</div> -->
 <br><br>
 
 
@@ -95,7 +92,7 @@ Show several visual examples of inputs/outputs of your system (success cases and
 
   <hr>
   <footer> 
-  <p>© You Name Here</p>
+  <p>© CV Cool Kids</p>
   </footer>
 </div>
 </div>
