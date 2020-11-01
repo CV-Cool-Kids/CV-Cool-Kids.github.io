@@ -20,6 +20,10 @@ color: #3366CC;
 .data {
 color: #FF9900;
 }
+
+li {
+  font-size: 14pt;
+}
 </style>
   
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -34,39 +38,77 @@ color: #FF9900;
 <div class="page-header">
 
 <!-- Title and Name --> 
-<h1>Mask Detection with CV [PROPOSAL]</h1> 
+<h1>Mask Detection with CV [Midterm Update]</h1> 
 <span style="font-size: 20px; line-height: 1.5em;"><strong>Naveen Ram, Cameron Benett, Rahul Bhethanabotla, Matthew Kelsey, Ishan Arya</strong></span><br>
 <span style="font-size: 18px; line-height: 1.5em;">Computer Vision Class Project Fall 2020: CS4476</span><br>
 <span style="font-size: 18px; line-height: 1.5em;">Georgia Tech</span>
 <hr>
 <!-- Goal -->
-<h3>Problem Statement</h3>
+<h3>Abstract</h3>
 
-<p>States across the country are working to reopen their facilities and public health authorities are assisting in facilitating this transition for most. During this transition, there have been a number of problematic and concerning statistics recorded from sources such as <a href="https://www.pewresearch.org/fact-tank/2020/06/23/most-americans-say-they-regularly-wore-a-mask-in-stores-in-the-past-month-fewer-see-others-doing-it/ft_2020-06-23_masks_01/">Pew Research Center</a> which claims fewer than two-thirds of U.S. adults claiming to wear masks are actually following suit. This is a concerning statistic for local businesses and supermarkets whose employees' livelihoods are in jeopardy based on customer compliance to simple mask wearing rules. In order to assist with the transition for stores, we pose the challenge of utilizing computer vision to create a system that can detect people wearing face masks in real time. This sort of system would be ideal for security usage in physical shops and stores at an assortment of locations. For effectiveness, we would constrain our system to be capable of detecting any number of faces at distances of up to 20ft away from any real-time camera feed. Given this live camera feed, this system should produce a percentage certainty that someone in the camera is wearing their mask. This system should also give an option to alert users of the system as to whether someone has entered without wearing a mask.</p>
+<p>Over the past few months since COVID-19’s arrival in the United States, there have been a number of problematic and concerning statistics recorded from sources such as <a href="https://www.pewresearch.org/fact-tank/2020/06/23/most-americans-say-they-regularly-wore-a-mask-in-stores-in-the-past-month-fewer-see-others-doing-it/ft_2020-06-23_masks_01/">Pew Research Center</a> which claims fewer than two-thirds of U.S. adults claiming to wear masks are actually following suit. This is a concerning statistic for local businesses and supermarkets whose employees' livelihoods are in jeopardy based on customer compliance to simple mask wearing rules. In order to assist with the transition for stores, we pose the challenge of utilizing computer vision to create a system that can detect people wearing face masks in real time. We use a Haar cascade classifier to crop faces out of the larger image to provide us with smaller images of the isolated faces, rather than a larger image which might contain multiple faces and background elements. As a baseline, we trained a convolutional neural network on similar facial images which were preprocessed (converting images to grayscale and changing mask color) in order to classify across whether a mask is present on the face and whether it is placed correctly. Results from our CNN showed an accuracy rate of 94% when identifying if an individual was wearing a mask or not.</p>
 
 <br><br>
 <!-- figure -->
-<!-- <h3>Teaser figure</h3>
-A figure that conveys the main idea behind the project or the main application being addressed.
+<h3>Teaser figure</h3>
 <br><br>
 <!-- Main Illustrative Figure --> 
-<!-- <div style="text-align: center;">
-<img style="height: 200px;" alt="" src="mainfig.png">
+<div style="text-align: center;">
+<img style="height: 200px;" alt="" src="images/teaser.jpg">
 </div>
 
-<br><br> -->
+<h3>Introduction</h3>
+<p>States across the country are working to reopen their facilities and public health authorities are assisting in facilitating this transition for most. During this transition, there have been a number of problematic and concerning statistics recorded from sources such as Pew Research Center which claims fewer than two-thirds of U.S. adults claiming to wear masks are actually following suit. This is a concerning statistic for local businesses and supermarkets whose employees' livelihoods are in jeopardy based on customer compliance to simple mask wearing rules. In order to assist with the transition for stores, we pose the challenge of utilizing computer vision to create a system that can detect people wearing face masks in real time. This sort of system would be ideal for security usage in physical shops and stores at an assortment of locations. For effectiveness, we would constrain our system to be capable of detecting any number of faces at distances of up to 20ft away from any real-time camera feed. Given this live camera feed, this system should produce a percentage certainty that someone in the camera is wearing their mask. This system should also give an option to alert users of the system as to whether someone has entered without wearing a mask.s</p>
+
+
+<br><br>
 <h3>Approach</h3>
-<p>We hope to use a variety of computer vision algorithms in order to create a system which can both crop faces out of a larger image and classify whether a mask is imposed over the image or not. We plan on using a Haar Classifier to crop faces out of the larger image. This will provide us with smaller images of the isolated faces, rather than a larger image which might contain multiple faces and background elements. As a baseline, we intend to train a CNN on similar facial images in order to classify across whether a mask is present on the face and whether it is placed correctly or not. Additionally, we will experiment with the use of data preprocessing algorithms like blob detection and background separation on the inputs to the CNN to see if we can increase accuracy. If necessary, we will also attempt to transform/augment our data in order to make our algorithm effective for different mask colors and types.</p>
+<p>We made use of the following datasets: <a href="https://esigelec-my.sharepoint.com/personal/cabani_esigelec_fr/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fcabani%5Fesigelec%5Ffr%2FDocuments%2FMaskedFaceNetDataset%2FCMFD&originalPath=aHR0cHM6Ly9lc2lnZWxlYy1teS5zaGFyZXBvaW50LmNvbS86ZjovZy9wZXJzb25hbC9jYWJhbmlfZXNpZ2VsZWNfZnIvRXYzR2RuUVN5enhQanl6VTVFbEhxYWdCbGtSQ2FLbm5DSTg1aVgtZDFMNE9IQT9ydGltZT1mOVNPSUNCNTJFZw">Correctly Placed Masks</a> and <a href="https://esigelec-my.sharepoint.com/personal/cabani_esigelec_fr/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fcabani%5Fesigelec%5Ffr%2FDocuments%2FMaskedFaceNetDataset%2FIMFD&originalPath=aHR0cHM6Ly9lc2lnZWxlYy1teS5zaGFyZXBvaW50LmNvbS86ZjovZy9wZXJzb25hbC9jYWJhbmlfZXNpZ2VsZWNfZnIvRWlyalM4ZXc3LTVMbk84STU2VWs2M3dCS2Vid1NsdWtGQkZCYU84TjI1d24zZz9ydGltZT1TeGU3TGlCNTJFZw">Incorrectly Placed Masks</a>. These datasets contain around a combined 130,000 images of color with dimensions 1024x1024. Before getting started utilizing these data sets, a couple of considerations had to be made with respect to how intensive model processing would be for this sizable amount of data and how impactful the data format would be on the desired output. While discussing, the most immediate concern that came to light was that pixel dimensions 1024x1024 would not emulate real-world detail of the face acquired from security cameras in real stores. In addition, 1024x1024 sized images likely contain a lot of data extraneous to that of the human face and mask. For these reasons, image resizing was added to the data preprocessing phase. Dimensions of the resized data became 150x150 for this phase of the project based on group speculation of desired sizing. Another concern that came to light had to do with a referenced article provided by a team member <a href="https://blog.roboflow.com/using-blur-in-computer-vision-preprocessing/">here</a>. Essentially, given most real world settings and the typical acquisition of image data, it makes sense to preprocess images using blur as it can assist in handling motion blur in real images, imperfect lens capture by real-world cameras and other unpredictable image modifiers. This in addition to one other article referenced from the <a href="https://arxiv.org/pdf/1701.01924.pdf">Singapore University of Technology and Design</a> provided enough reason to justify the application of blur and noise filters during our preprocessing phase. After some consideration and varied applications of noise filters, which can be seen in images below, our preprocessing phase was set on image resizing, greyscaling and adding a gaussian blur along with gaussian noise to all images. Below displays some comparisons of preprocessed data varied on function of noise applied.</p>
+
+<div style="text-align: center;">
+<img style="height: 600px;" alt="" src="images/babies.jpg">
+</div>
+
+<p>After preprocessing this dataset, a convolutional Neural Net was used to classify images with and without masks. In order to keep training times to a minimum, images input to the CNN were further resized from 150x150 to 50x50 before being input. The details of CNN performance can be seen below. </p>
+<div style="text-align: center;">
+<img style="height: 400px;" alt="" src="images/cnn.jpg">
+</div>
+  
+<p>Finally, with consideration to launching and demonstrating model effectiveness in the real-world, a webcam backed up by a Haar feature based cascade classifier preprocessing script will be used to recognize new faces in a live video feed. We started with a cascade for frontal face detection but found that it never worked when the subject of the image was wearing a mask because necessary facial features were obstructed. Instead, we used the position of the eyes to interpolate the facial position using simple scaling and positioning of a facial bounding box. The below figure shows the detected face using the frontal facial cascade (pink) and the face detected by interpolating the eye positions (blue eye positions and orange face bounds).</p>
+
+<div style="text-align: center;">
+<img style="height: 300px;" alt="" src="images/mkel.jpg">
+</div>
+
+<p>Screen captures of these facial bounding boxes will then be sent to the CNN model which will predict whether or not the seen user is wearing their mask or not.</p>
+
+<br><br>
 
 
 <br><br>
 <h3>Experiments and results</h3>
-<p>Dataset:</p>
-<p>We will use the datasets from <a href="https://arxiv.org/abs/2008.08016">this paper</a> which can be found at <a href="https://github.com/cabani/MaskedFace-Net">this GitHub repo</a>.</p>
-<p>Code: We intend to make use of modules like OpenCV and Keras in building our project. We may use some helpful methods in OpenCV to expedite certain steps in our project such as the Haar Cascade classification to isolate faces and face features. Obviously, to set up our CNN, we’ll use Keras methods/classes as needed.</p>
-<p>We believe success would be having a statistically significant result (>95%) in positively detecting whether or not a person was wearing a mask and if they were wearing it correctly. Furthermore, we believe that by using various preprocessing algorithms, we’ll be able to identify which algorithms work the best in yielding meaningful results.</p>
-<p>We expect the results to be pretty straightforward: either the classifier works well or it doesn’t. Uncertainty might arise from our implementations of the preprocessing and what parameters we use for Haar and in our CNN. Furthermore, it's possible that the proportion of not-wearing a mask at all to wearing-incorrectly in the “Incorrect Face Masking Dataset” could skew how well we are able to identify the difference between (wearing, incorrect) vs (not-wearing, ___). Also since all the masks in the dataset are the same color, we might attempt to algorithmically change the color of some of the masks in the training dataset so the classifier works on all types of masks. 
-</p>
+<h4>Image Recoloring</h4>
+<ul>
+  <li>Using OpenCV, we programmatically identified the pixels on the mask of individuals and changed the color by taking a weighted sum of the current mask color and a random color from [Red, Black, Blue, Green] to generate a variety of different mask colors. The weights of the current color and the random color were also varied so the number of mask colors would be larger still. Current color replacement leaves a few pixels around the white border of the <a href="https://images-na.ssl-images-amazon.com/images/I/71Okw5cMcDL._SL1500_.jpg">facemasks</a>. An example color-replaced mask image is shown below. </li>
+  <div style="text-align: center;">
+  <img style="height: 200px;" alt="" src="images/recolor.jpg">
+  </div>
+</ul>
+<h4>Image Classification</h4>
+<ul>
+  <li>While we were experimenting with preprocessing and resizing the dataset, we also started experimenting with classifying images as either “Correct” or “Incorrect” based on how the subject appears to be wearing their mask. To do this, we decided to use a convolutional neural network as a classifier. Because we were still working on the processing of the datest, we decided to train our baseline model on a subset of the full dataset containing around 6,000 images that had been resized to 150x150 and converted to grayscale. At this stage of training, it helps to iterate on a smaller dataset in order to quickly try out different model structures without spending too much time loading and training on the data. Additionally, to increase the speed of our training process we further resized the images to 50x50 before feeding them into the model.</li>
+  <li>The first model we trained had two convolutional layers with relu activation and a few dense layers afterwards to produce a two-dimensional classification similar to the model explained in the TensorFlow image classification tutorial. After a few experiments using different optimizers with this model we found that we were running into the “dying relu” problem which is an issue where the relu activation function for the convolutional layers dies off and outputs zero and the gradient does not update properly. To fix this problem we switched the first activation function to sigmoid and used a Leaky Relu layer (which is supposed to be more resistant to the dying problem). Our resultant model looked like this:
+  </li>
+  <div style="text-align: center;">
+  <img style="height: 200px;" alt="" src="images/text.jpg">
+  </div>
+  <li>Training this model on our 5,863 image dataset using a standard SGD optimizer yielded very promising results. We split the dataset into 4691 training images and 1172 validation images. Below you can see the validation and train accuracy for the model described above over the course of 60 training epochs:
+  </li>
+  <div style="text-align: center;">
+  <img style="height: 200px;" alt="" src="images/cnn.jpg">
+  </div>
+  <li>As you can see, both the training and validation accuracy surpassed the 90% level, with the validation accuracy level reaching as high as 94% on certain models. Considering this is just a baseline using a subset of our total data, we are very excited that our model is already able to discriminate fairly accurately between correct and incorrect mask usage.</li>
+</ul>
 <br><br>
 
 <!-- Main Results Figure --> 
@@ -76,10 +118,22 @@ A figure that conveys the main idea behind the project or the main application b
 <br><br> -->
 
 <!-- Results -->
-<!-- <h3>Qualitative results</h3>
-Show several visual examples of inputs/outputs of your system (success cases and failures) that help us better understand your approach.
-<br><br> -->
+<h3>Qualitative results</h3>
+<li>It seems likely that the first couple layers of the model are focusing on detecting nose, mouth, and chin features that determine whether an image is classified as “incorrect” or “correct”. Below are a few example images classified as correct and incorrect. Note that for all of these examples the model correctly identified the class of the image.</li>
+<div style="text-align: center;">
+<img style="height: 200px;" alt="" src="images/people.jpg">
+</div>
+<br><br>
 
+<h3>Conclusion and future work</h3>
+<p>In its current state, this project presents some promising leads that it’s initial goals aimed to achieve. The combined pre-processed data sets and Convolutional Neural Net produces an accuracy level of about 94% in its mask predictions before any additional hyperparameter optimization or resolution increase in the image dataset. In addition, demonstrations of a fully functional haar cascade classifier for image capture through live webcam feed seems to be indicative of a live demo format for the existing CNN model. Some considerations for the next phase of this project include testing of live webcam feed on faces with glasses. There needs to be assurance that the eye interpolation detection won’t fault in the event of various eye coverings. There will also be some additional generation of statistics revolving around how accurate differently preprocessed data sets function on the final model in real-time. Some cohesion will be added to all project parts and ideally produce a straightforward system that can be directly input into a real world scenario. 
+</p>
+<br><br>
+<h3>References</h3>
+<ul>
+  <li><a href="https://www.tensorflow.org/tutorials/images/classification">Tensorflow image classification tutorial</a></li>
+  <li><a href="https://docs.opencv.org/4.5.0/db/d28/tutorial_cascade_classifier.html">OpenCV Haar-classification tutorial</a></li>
+</ul>
 <!-- Main Results Figure --> 
 <!-- <div style="text-align: center;">
 <img style="height: 300px;" alt="" src="qual_results.png">
