@@ -54,7 +54,7 @@ li {
 <br><br>
 <!-- Main Illustrative Figure --> 
 <div style="text-align: center;">
-<img style="height: 200px;" alt="" src="images/teaser.jpg">
+<img style="height: 200px;" alt="" src="images/teaser.JPG">
 </div>
 
 <h3>Introduction</h3>
@@ -66,18 +66,18 @@ li {
 <p>We made use of the following datasets: <a href="https://esigelec-my.sharepoint.com/personal/cabani_esigelec_fr/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fcabani%5Fesigelec%5Ffr%2FDocuments%2FMaskedFaceNetDataset%2FCMFD&originalPath=aHR0cHM6Ly9lc2lnZWxlYy1teS5zaGFyZXBvaW50LmNvbS86ZjovZy9wZXJzb25hbC9jYWJhbmlfZXNpZ2VsZWNfZnIvRXYzR2RuUVN5enhQanl6VTVFbEhxYWdCbGtSQ2FLbm5DSTg1aVgtZDFMNE9IQT9ydGltZT1mOVNPSUNCNTJFZw">Correctly Placed Masks</a> and <a href="https://esigelec-my.sharepoint.com/personal/cabani_esigelec_fr/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fcabani%5Fesigelec%5Ffr%2FDocuments%2FMaskedFaceNetDataset%2FIMFD&originalPath=aHR0cHM6Ly9lc2lnZWxlYy1teS5zaGFyZXBvaW50LmNvbS86ZjovZy9wZXJzb25hbC9jYWJhbmlfZXNpZ2VsZWNfZnIvRWlyalM4ZXc3LTVMbk84STU2VWs2M3dCS2Vid1NsdWtGQkZCYU84TjI1d24zZz9ydGltZT1TeGU3TGlCNTJFZw">Incorrectly Placed Masks</a>. These datasets contain around a combined 130,000 images of color with dimensions 1024x1024. Before getting started utilizing these data sets, a couple of considerations had to be made with respect to how intensive model processing would be for this sizable amount of data and how impactful the data format would be on the desired output. While discussing, the most immediate concern that came to light was that pixel dimensions 1024x1024 would not emulate real-world detail of the face acquired from security cameras in real stores. In addition, 1024x1024 sized images likely contain a lot of data extraneous to that of the human face and mask. For these reasons, image resizing was added to the data preprocessing phase. Dimensions of the resized data became 150x150 for this phase of the project based on group speculation of desired sizing. Another concern that came to light had to do with a referenced article provided by a team member <a href="https://blog.roboflow.com/using-blur-in-computer-vision-preprocessing/">here</a>. Essentially, given most real world settings and the typical acquisition of image data, it makes sense to preprocess images using blur as it can assist in handling motion blur in real images, imperfect lens capture by real-world cameras and other unpredictable image modifiers. This in addition to one other article referenced from the <a href="https://arxiv.org/pdf/1701.01924.pdf">Singapore University of Technology and Design</a> provided enough reason to justify the application of blur and noise filters during our preprocessing phase. After some consideration and varied applications of noise filters, which can be seen in images below, our preprocessing phase was set on image resizing, greyscaling and adding a gaussian blur along with gaussian noise to all images. Below displays some comparisons of preprocessed data varied on function of noise applied.</p>
 
 <div style="text-align: center;">
-<img style="height: 600px;" alt="" src="images/babies.jpg">
+<img style="height: 600px;" alt="" src="images/babies.JPG">
 </div>
 
 <p>After preprocessing this dataset, a convolutional Neural Net was used to classify images with and without masks. In order to keep training times to a minimum, images input to the CNN were further resized from 150x150 to 50x50 before being input. The details of CNN performance can be seen below. </p>
 <div style="text-align: center;">
-<img style="height: 400px;" alt="" src="images/cnn.jpg">
+<img style="height: 400px;" alt="" src="images/cnn.JPG">
 </div>
   
 <p>Finally, with consideration to launching and demonstrating model effectiveness in the real-world, a webcam backed up by a Haar feature based cascade classifier preprocessing script will be used to recognize new faces in a live video feed. We started with a cascade for frontal face detection but found that it never worked when the subject of the image was wearing a mask because necessary facial features were obstructed. Instead, we used the position of the eyes to interpolate the facial position using simple scaling and positioning of a facial bounding box. The below figure shows the detected face using the frontal facial cascade (pink) and the face detected by interpolating the eye positions (blue eye positions and orange face bounds).</p>
 
 <div style="text-align: center;">
-<img style="height: 300px;" alt="" src="images/mkel.jpg">
+<img style="height: 300px;" alt="" src="images/mkel.JPG">
 </div>
 
 <p>Screen captures of these facial bounding boxes will then be sent to the CNN model which will predict whether or not the seen user is wearing their mask or not.</p>
@@ -89,9 +89,9 @@ li {
 <h3>Experiments and results</h3>
 <h4>Image Recoloring</h4>
 <ul>
-  <li>Using OpenCV, we programmatically identified the pixels on the mask of individuals and changed the color by taking a weighted sum of the current mask color and a random color from [Red, Black, Blue, Green] to generate a variety of different mask colors. The weights of the current color and the random color were also varied so the number of mask colors would be larger still. Current color replacement leaves a few pixels around the white border of the <a href="https://images-na.ssl-images-amazon.com/images/I/71Okw5cMcDL._SL1500_.jpg">facemasks</a>. An example color-replaced mask image is shown below. </li>
+  <li>Using OpenCV, we programmatically identified the pixels on the mask of individuals and changed the color by taking a weighted sum of the current mask color and a random color from [Red, Black, Blue, Green] to generate a variety of different mask colors. The weights of the current color and the random color were also varied so the number of mask colors would be larger still. Current color replacement leaves a few pixels around the white border of the <a href="https://images-na.ssl-images-amazon.com/images/I/71Okw5cMcDL._SL1500_.JPG">facemasks</a>. An example color-replaced mask image is shown below. </li>
   <div style="text-align: center;">
-  <img style="height: 200px;" alt="" src="images/recolor.jpg">
+  <img style="height: 200px;" alt="" src="images/recolor.JPG">
   </div>
 </ul>
 <h4>Image Classification</h4>
@@ -100,12 +100,12 @@ li {
   <li>The first model we trained had two convolutional layers with relu activation and a few dense layers afterwards to produce a two-dimensional classification similar to the model explained in the TensorFlow image classification tutorial. After a few experiments using different optimizers with this model we found that we were running into the “dying relu” problem which is an issue where the relu activation function for the convolutional layers dies off and outputs zero and the gradient does not update properly. To fix this problem we switched the first activation function to sigmoid and used a Leaky Relu layer (which is supposed to be more resistant to the dying problem). Our resultant model looked like this:
   </li>
   <div style="text-align: center;">
-  <img style="height: 200px;" alt="" src="images/text.jpg">
+  <img style="height: 200px;" alt="" src="images/text.JPG">
   </div>
   <li>Training this model on our 5,863 image dataset using a standard SGD optimizer yielded very promising results. We split the dataset into 4691 training images and 1172 validation images. Below you can see the validation and train accuracy for the model described above over the course of 60 training epochs:
   </li>
   <div style="text-align: center;">
-  <img style="height: 200px;" alt="" src="images/cnn.jpg">
+  <img style="height: 200px;" alt="" src="images/cnn.JPG">
   </div>
   <li>As you can see, both the training and validation accuracy surpassed the 90% level, with the validation accuracy level reaching as high as 94% on certain models. Considering this is just a baseline using a subset of our total data, we are very excited that our model is already able to discriminate fairly accurately between correct and incorrect mask usage.</li>
 </ul>
@@ -121,7 +121,7 @@ li {
 <h3>Qualitative results</h3>
 <li>It seems likely that the first couple layers of the model are focusing on detecting nose, mouth, and chin features that determine whether an image is classified as “incorrect” or “correct”. Below are a few example images classified as correct and incorrect. Note that for all of these examples the model correctly identified the class of the image.</li>
 <div style="text-align: center;">
-<img style="height: 200px;" alt="" src="images/people.jpg">
+<img style="height: 200px;" alt="" src="images/people.JPG">
 </div>
 <br><br>
 
