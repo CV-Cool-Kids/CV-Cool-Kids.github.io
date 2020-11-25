@@ -71,11 +71,11 @@ li {
 </div>
 
 <p>After preprocessing this dataset, a convolutional Neural Net was used to classify images with and without masks. In order to keep training times to a minimum, images input to the CNN were further resized from 150x150 to 50x50 before being input. The details of CNN performance can be seen below. </p>
-<br />
+<!-- <br />
 <div style="text-align: center;">
 <img style="height: 400px;" alt="" src="images/cnn.JPG">
 </div>
-<br />
+<br /> -->
 <p>Finally, with consideration to launching and demonstrating model effectiveness in the real-world, a webcam backed up by a Haar feature based cascade classifier preprocessing script was used to recognize new faces in a live video feed. We started with a cascade for frontal face detection but found that it never worked when the subject of the image was wearing a mask because necessary facial features were obstructed. Instead, we used the position of the eyes to interpolate the facial position using simple scaling and positioning of a facial bounding box. The below figure shows the detected face using the frontal facial cascade (pink) and the face detected by interpolating the eye positions (blue eye positions and orange face bounds). We tuned the interpolation algorithm to position the face in a similar position to how faces appear in the dataset used the CNN was trained with.
 </p>
 <br />
